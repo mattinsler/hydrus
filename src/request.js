@@ -1,3 +1,5 @@
+import joi from 'joi';
+
 import types from './types';
 
 const TYPE_RX = /^(!)?([^\.]+)(\.(.+))?$/;
