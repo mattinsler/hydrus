@@ -1,0 +1,27 @@
+{
+  "name": "hydrus",
+  "version": "0.0.1",
+  "description": "",
+  "keywords": [],
+  "homepage": "https://github.com/mattinsler/hydrus",
+  "bugs": {
+    "url": "https://github.com/mattinsler/hydrus/issues"
+  },
+  "license": "MIT",
+  "author": "Matt Insler <matt.insler@gmail.com>",
+  "main": "lib/hydrus",
+  "repository": "mattinsler/hydrus",
+  "scripts": {
+    "build": "rm -rf lib; babel src -d lib",
+    "prepublish": "npm run build"
+  },
+  "dependencies": {
+    "body-parser": "1.15.2",
+    "joi": "9.0.4"
+  },
+  "devDependencies": {
+    "babel-cli": "6.14.0",
+    "babel-preset-es2015": "6.14.0",
+    "babel-preset-stage-0": "6.5.0"
+  }
+}
