@@ -54,6 +54,7 @@ function handleRequest({ name, operation, handler }, req, res) {
       const data = await handler(request);
       handleSuccess(data, req, res);
     } catch (err) {
+      console.log(err.stack);
       handleError(err, req, res);
     }
   });

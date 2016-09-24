@@ -12,7 +12,7 @@ function parseType(spec) {
 
   const isRequired = match[1] === '!';
   const typeName = match[2];
-  const typeOptions = match[4].split('.').map(a => a.trim());
+  const typeOptions = (match[4] || '').split('.').map(a => a.trim()).filter(a => a);
 
   if (!types[typeName]) {
     throw new Error(`Unknown type name: ${typeName}`);

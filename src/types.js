@@ -2,17 +2,19 @@ import joi from 'joi';
 
 const OPTION_RX = /^([^\(]+)(\(([^\)]+)\))?$/;
 
-/*
-  Hash of type -> method that creates a validator
-*/
-const types = {
-  string(options = [], { isRequired = false }) {
-    let validator = joi.string();
+function createJoiType(typeName) {
+  return function(options = [], { isRequired = false }) {
+    let validator = joi[typeName]();
 
     for (let opt of options) {
-      const [, name, , arg] = OPTION_RX.exec(opt);
+      let [, name, , arg] = OPTION_RX.exec(opt);
       if (arg) {
-        validator = validator[name].call(validator, JSON.parse(arg));
+        if (/^\/.*\/$/.test(arg)) {
+          arg = new RegExp(arg.slice(1, -1));
+        } else {
+          arg = JSON.parse(arg);
+        }
+        validator = validator[name].call(validator, arg);
       } else {
         validator = validator[name]();
       }
@@ -24,6 +26,14 @@ const types = {
 
     return validator;
   }
+}
+
+/*
+  Hash of type -> method that creates a validator
+*/
+const types = {
+  string: createJoiType('string'),
+  number: createJoiType('number')
 }
 
 export default types;
