@@ -1,6 +1,6 @@
 {
   "name": "hydrus",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "",
   "keywords": [],
   "homepage": "https://github.com/mattinsler/hydrus",
@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "body-parser": "1.15.2",
+    "got": "6.5.0",
     "joi": "9.0.4"
   },
   "devDependencies": {

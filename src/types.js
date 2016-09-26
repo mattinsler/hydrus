@@ -1,22 +1,16 @@
 import joi from 'joi';
 
-const OPTION_RX = /^([^\(]+)(\(([^\)]+)\))?$/;
-
 function createJoiType(typeName) {
   return function(options = [], { isRequired = false }) {
     let validator = joi[typeName]();
 
     for (let opt of options) {
-      let [, name, , arg] = OPTION_RX.exec(opt);
-      if (arg) {
-        if (/^\/.*\/$/.test(arg)) {
-          arg = new RegExp(arg.slice(1, -1));
-        } else {
-          arg = JSON.parse(arg);
-        }
-        validator = validator[name].call(validator, arg);
+      if (Array.isArray(opt) && opt.length === 2) {
+        validator = validator[opt[0]].call(validator, opt[1]);
+      } else if (typeof(opt) === 'string') {
+        validator = validator[opt]();
       } else {
-        validator = validator[name]();
+        throw new Error(`Invalid option: ${opt}`);
       }
     }
 
