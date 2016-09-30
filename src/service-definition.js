@@ -56,7 +56,7 @@ function operation(name, request, response) {
       request: new Request(request),
       response,
       handler(instance) {
-        return instance[key];
+        return instance[key].bind(instance);
       }
     };
   });
