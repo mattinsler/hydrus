@@ -21,9 +21,20 @@ function parseValue(value) {
   }
 }
 
+function splitOptions(value = '') {
+  let match;
+  const parts = [];
+
+  while (match = /^(([^\(.]+)(\([^\)]+\))?)\.?/.exec(value)) {
+    parts.push(match[1]);
+    value = value.slice(match[0].length);
+  }
+
+  return parts;
+}
+
 function parseOptions(value = '') {
-  return value
-    .split('.')
+  return splitOptions(value)
     .map(a => a.trim())
     .filter(a => a)
     .map((opt) => {
